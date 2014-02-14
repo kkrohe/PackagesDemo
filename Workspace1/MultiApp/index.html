@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>MultiApp</title>
+    <script type="text/javascript">
+        var Ext = Ext || {};
+        Ext.repoDevMode = true;
+        Ext.beforeLoad = function(tags){
+            var profile = location.href.match(/profile=([\w-]+)/);
+            
+            profile = profile && profile[1];
+            
+            if(!profile && (!!tags.android || !!tags.phone)) {
+                profile = "phone";
+            }
+
+            if(!profile && !!tags.desktop) {
+                profile = "desktop";
+            }
+
+            profile = profile || "tablet";
+
+            Ext.manifest = profile;
+            return tags;
+        };
+    </script>
+    <!-- The line below must be kept intact for Sencha Command to build your application -->
+    <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
+</head>
+<body></body>
+</html>
